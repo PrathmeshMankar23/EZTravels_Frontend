@@ -189,7 +189,7 @@ export default function Destinations() {
     return (
       <section id="destinations" className="destinations-container">
         <div className="destinations-header">
-          <h2>Loading Destinations...</h2>
+          <h6>Loading Destinations...</h6>
         </div>
       </section>
     );
@@ -254,7 +254,7 @@ export default function Destinations() {
         {filteredDestinations.length > 6 && (
           <div className="see-more-container">
             <button className="btn-see-more" onClick={() => setShowAllDestinations(!showAllDestinations)}>
-              {showAllDestinations ? "See Less" : "See More"}
+              {showAllDestinations ? "View Less" : "View More..."}
             </button>
           </div>
         )}

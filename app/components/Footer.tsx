@@ -1,14 +1,24 @@
 "use client";
 
 import React from 'react';
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
     <footer id="footer" className="main-footer">
+
       <div className="newsletter-section">
         <span className="promo-badge">✨ Exclusive Offers</span>
-        <h2>Get Special Deals & Travel Inspiration</h2>
-        <p>Follow us on social media and unlock exclusive offers! Comment, like, and follow us on Instagram, Facebook, Twitter, and YouTube to get special travel deals and discounts!</p>
+        <h2>Share Your Travel Story</h2>
+
+        <p>
+          Had an amazing journey with Eazy Travels? Tell us about your experience!
+          Write a unique review and get a chance to be featured on our website.
+          Selected travelers receive exclusive discounts on their next adventure.
+        </p>
+
+
+        {/*
         <div className="social-engagement">
           <a href="#" className="social-platform-link">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -35,55 +45,68 @@ const Footer: React.FC = () => {
             <span>YouTube</span>
           </a>
         </div>
-        <p className="sub-text">Join 50,000+ travelers getting exclusive deals through social media!</p>
+        */}
+
+        <p className="sub-text">
+          Your story could inspire thousands of travelers around the world.
+        </p>
       </div>
 
+
       <div className="footer-bottom-grid">
-        <div className="footer-brand">
-          <div className="footer-logo">🌐 Eazy Travels</div>
-          <p>Your trusted travel partner for unforgettable adventures around the world.</p>
-        </div>
-
-        <div className="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#destinations">Destinations</a></li>
-            <li><a href="#hero">Home</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-contact">
-          <h4>Contact Us</h4>
-          <div className="footer-contact-info">
-            <div className="footer-contact-item">
-              <div className="footer-contact-icon">📍</div>
-              <div>
-                <h5>Our Office</h5>
-                <p>123 Travel Street, Adventure City, AC 12345</p>
-              </div>
+          <div className="footer-brand">
+            <div className="footer-logo">
+              <Image
+                src="/assets/images/EZ_logo.png"
+                alt="Eazy Travels Logo"
+                width={100}
+                height={100}
+                priority
+              />
             </div>
-            <div className="footer-contact-item">
-              <div className="footer-contact-icon">📞</div>
-              <div>
-                <h5>Phone Number</h5>
-                <p>+1 (555) 123-4567</p>
+            <p>Your trusted travel partner for unforgettable adventures around the world.</p>
+          </div>
+
+          <div className="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#destinations">Destinations</a></li>
+              <li><a href="#hero">Home</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-contact">
+            <h4>Contact Us</h4>
+            <div className="footer-contact-info">
+              <div className="footer-contact-item">
+                <div className="footer-contact-icon">📍</div>
+                <div>
+                  <h5>Our Office</h5>
+                  <p>123 Travel Street, Adventure City, AC 12345</p>
+                </div>
               </div>
-            </div>
-            <div className="footer-contact-item">
-              <div className="footer-contact-icon">✉️</div>
-              <div>
-                <h5>Email Address</h5>
-                <p>info@easytravels.com</p>
+              <div className="footer-contact-item">
+                <div className="footer-contact-icon">📞</div>
+                <div>
+                  <h5>Phone Number</h5>
+                  <p>+1 (555) 123-4567</p>
+                </div>
+              </div>
+              <div className="footer-contact-item">
+                <div className="footer-contact-icon">✉️</div>
+                <div>
+                  <h5>Email Address</h5>
+                  <p>info@easytravels.com</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="footer-copyright">
-        <p> 2026 Eazy Travels. All rights reserved. Crafted with for travelers worldwide.</p>
-      </div>
+        <div className="footer-copyright">
+          <p> @2026 Eazy Travels. All rights reserved. Crafted with for travelers worldwide.</p>
+        </div>
     </footer>
   );
 };
