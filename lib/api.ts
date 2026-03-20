@@ -278,7 +278,7 @@ export const api = {
         },
       });
       console.log('📡 Response status:', response.status);
-      
+
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
         throw new Error(err.error || err.message || "Failed to fetch destinations");
@@ -311,7 +311,7 @@ export const api = {
           'Content-Type': 'application/json',
         },
       });
-      
+
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
         throw new Error(err.error || err.message || "Failed to fetch categories");
@@ -336,17 +336,37 @@ export const api = {
   },
 
   // Enquiries
+  // Enquiries
   async submitEnquiry(enquiryData: EnquiryData): Promise<void> {
-    const response = await fetch(`${API_BASE_URL}/enquiry`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(enquiryData),
-    });
-    if (!response.ok) throw new Error('Failed to submit enquiry');
-  },
+    try {
+      const response = await fetch(`${API_BASE_URL}/enquiry`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
 
+        // 🔥 FIX HERE
+        body: JSON.stringify({
+          name: enquiryData.customerName,   // ✅ FIXED
+          email: enquiryData.email,
+          phone: enquiryData.phone,
+          message: enquiryData.message || "",
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        console.error("❌ Enquiry Error:", err);
+        throw new Error(err.message || "Failed to submit enquiry");
+      }
+
+      console.log("✅ Enquiry sent successfully");
+
+    } catch (error) {
+      console.error("❌ Enquiry API Error:", error);
+      throw error;
+    }
+  },
   // Contact Form
   async submitContactForm(contactData: ContactFormData): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/contact`, {
