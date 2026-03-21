@@ -1,5 +1,5 @@
 // API utility functions for frontend
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://easy-travels-backend.onrender.com/api';
+const API_BASE_URL = 'https://easy-travels-backend.onrender.com/api';
 
 // Debug: Log API URL being used
 console.log('Frontend API Base URL:', API_BASE_URL);
@@ -336,16 +336,16 @@ export const api = {
   },
 
   // Enquiries
-  // Enquiries
-  async submitEnquiry(enquiryData: EnquiryData): Promise<void> {
+  submitEnquiry: async (enquiryData: EnquiryData): Promise<void> => {
     try {
+      console.log("🚀 Submitting enquiry to:", `${API_BASE_URL}/enquiry`);
+      console.log("📝 Enquiry data:", enquiryData);
+
       const response = await fetch(`${API_BASE_URL}/enquiry`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-
-        // 🔥 FIX HERE
         body: JSON.stringify({
           name: enquiryData.customerName,   // ✅ FIXED
           email: enquiryData.email,
@@ -354,21 +354,32 @@ export const api = {
         }),
       });
 
+      console.log("📡 Response status:", response.status);
+      console.log("📡 Response ok:", response.ok);
+
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
         console.error("❌ Enquiry Error:", err);
-        throw new Error(err.message || "Failed to submit enquiry");
+        console.error("❌ Response Status:", response.status);
+        throw new Error(err.error || err.message || `Failed to submit enquiry (${response.status})`);
       }
 
       console.log("✅ Enquiry sent successfully");
 
     } catch (error) {
       console.error("❌ Enquiry API Error:", error);
+      console.error("❌ API Base URL:", API_BASE_URL);
+      
+      // More specific error messages
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new Error('Cannot connect to backend. Please ensure the backend server is running on localhost:5001');
+      }
+      
       throw error;
     }
   },
   // Contact Form
-  async submitContactForm(contactData: ContactFormData): Promise<void> {
+  submitContactForm: async (contactData: ContactFormData): Promise<void> => {
     const response = await fetch(`${API_BASE_URL}/contact`, {
       method: 'POST',
       headers: {
@@ -380,7 +391,7 @@ export const api = {
   },
 
   // Admin - Destinations CRUD
-  async addDestination(destinationData: Omit<Destination, 'id'>): Promise<Destination> {
+  addDestination: async (destinationData: Omit<Destination, 'id'>): Promise<Destination> => {
     const response = await fetch(`${API_BASE_URL}/destinations`, {
       method: 'POST',
       headers: {
@@ -392,7 +403,7 @@ export const api = {
     return response.json();
   },
 
-  async updateDestination(id: string, destinationData: Partial<Destination>): Promise<Destination> {
+  updateDestination: async (id: string, destinationData: Partial<Destination>): Promise<Destination> => {
     const response = await fetch(`${API_BASE_URL}/destinations/${id}`, {
       method: 'PUT',
       headers: {
@@ -404,7 +415,7 @@ export const api = {
     return response.json();
   },
 
-  async deleteDestination(id: string): Promise<void> {
+  deleteDestination: async (id: string): Promise<void> => {
     const response = await fetch(`${API_BASE_URL}/destinations/${id}`, {
       method: 'DELETE',
     });
@@ -412,7 +423,7 @@ export const api = {
   },
 
   // Admin - Categories CRUD
-  async addCategory(categoryData: Omit<Category, 'id'>): Promise<Category> {
+  addCategory: async (categoryData: Omit<Category, 'id'>): Promise<Category> => {
     const response = await fetch(`${API_BASE_URL}/categories`, {
       method: 'POST',
       headers: {
