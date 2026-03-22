@@ -369,12 +369,12 @@ export const api = {
     } catch (error) {
       console.error("❌ Enquiry API Error:", error);
       console.error("❌ API Base URL:", API_BASE_URL);
-      
+
       // More specific error messages
       if (error instanceof TypeError && error.message.includes('fetch')) {
         throw new Error('Cannot connect to backend. Please ensure the backend server is running on localhost:5001');
       }
-      
+
       throw error;
     }
   },
